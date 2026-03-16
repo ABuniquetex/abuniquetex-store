@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABuniquetex | Premium Store</title>
+    <style>
+        :root { --primary: #1a73e8; --amazon: #ff9900; --bg: #f4f7f9; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); }
+        header { background: #fff; padding: 15px 5%; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        header img { height: 40px; margin-right: 15px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; padding: 40px 5% 120px; max-width: 1400px; margin: 0 auto; }
+        
+        /* 3D Jumping Card */
+        .card { background: #fff; border-radius: 15px; overflow: hidden; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; position: relative; }
+        .card:hover { transform: translateY(-15px); box-shadow: 0 30px 60px rgba(0,0,0,0.15); }
+        .img-box { width: 100%; height: 280px; display: flex; align-items: center; justify-content: center; }
+        .img-box img { max-width: 90%; max-height: 90%; object-fit: contain; }
+        .info { padding: 15px; text-align: center; }
+        .btn { display: block; background: var(--primary); color: #fff; text-align: center; padding: 15px; text-decoration: none; font-weight: bold; text-transform: uppercase; }
+        .btn.amazon { background: var(--amazon); color: #000; }
+
+        /* Continuous Slider */
+        .slider { background: #fff; padding: 15px 0; overflow: hidden; border-top: 1px solid #ddd; position: fixed; bottom: 0; width: 100%; }
+        .track { display: flex; width: max-content; animation: scroll 30s linear infinite; align-items: center; }
+        .item { display: flex; align-items: center; margin: 0 40px; font-weight: bold; color: #555; }
+        .item img { height: 25px; margin-right: 10px; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<header>
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhiyD2kRGei2Tjkvm904Tj2zf4ljqhH37BzgL1X89hmMTJ8yRH9ikVe-tBAPsppfyo5dkdCpFu6sa2D2P6CHiDwBM5gY-rxGhjdzSMwVRU0vtyXuyb6sBIi0JSVL1IY0_7PEHkW4UtTZr3FKIqVNceNG_pdLCyguzCuMFfNCdsfTgl_mGaXvEZ4Bg_83mM/s400/ChatGPT%20Image%20Mar%2013,%202026,%2003_05_42%20PM.png" alt="Logo">
+    <h1>ABuniquetex</h1>
+</header>
+<div class="grid" id="product-grid"></div>
+<div class="slider"><div class="track" id="brand-track"></div></div>
+<script>
+    const products = [
+        { title: "Women's Anarkali Kurta", img: "https://m.media-amazon.com/images/I/71Yt4P9G86L._AC_UY1100_.jpg", link: "https://amzn.to/your-link", site: "Amazon" },
+        { title: "Skin Moisturizer", img: "https://m.media-amazon.com/images/I/51G+W5-nL5L._SL1000_.jpg", link: "https://amzn.to/your-link", site: "Amazon" }
+    ];
+    const grid = document.getElementById('product-grid');
+    products.forEach(p => {
+        const isAmz = p.site.toLowerCase() === 'amazon';
+        grid.innerHTML += `<div class="card" onclick="window.open('${p.link}', '_blank')"><div class="img-box"><img src="${p.img}"></div><div class="info"><h3>${p.title}</h3></div><div class="btn ${isAmz ? 'amazon' : ''}">${isAmz ? 'Buy on Amazon' : 'Shop on ' + p.site}</div></div>`;
+    });
+    const brands = ["Amazon", "Flipkart", "Ajio", "Myntra"];
+    const icons = { Amazon: "https://www.vectorlogo.zone/logos/amazon/amazon-ar21.svg", Flipkart: "https://www.vectorlogo.zone/logos/flipkart/flipkart-ar21.svg", Ajio: "https://www.vectorlogo.zone/logos/ajio/ajio-ar21.svg", Myntra: "https://www.vectorlogo.zone/logos/myntra/myntra-ar21.svg" };
+    const track = document.getElementById('brand-track');
+    const content = brands.map(b => `<div class="item"><img src="${icons[b]}">${b}</div>`).join('');
+    track.innerHTML = content + content;
+</script>
+</body>
+</html>
